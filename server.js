@@ -46,4 +46,7 @@ server.delete('/api/todo/items', (req, reply) => {
   reply.send({ ok: true })
 })
 
-await server.listen({ port: parseInt(process.env.PORT) })
+await server.listen({
+  port: parseInt(process.env.PORT),
+  host: '0.0.0.0'
+})
