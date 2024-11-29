@@ -5,7 +5,7 @@ import { Model } from 'objection';
 import { User } from './models/User.js';
 import knexConfig from './knexfile.js';
 
-Model.knex(knex(knexConfig[process.env.NODE_ENV]));
+Model.knex(knex(knexConfig));
 
 const server = Fastify({
   logger: {
@@ -33,7 +33,6 @@ server.decorate('db', {
 
 server.get('/api/users', async (req, reply) => {
   const users = await User.query();
-  console.log('users1', users);
   reply.code(200).send(users);
 });
 

@@ -1,37 +1,21 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 export default {
-  development: {
-    client: 'postgresql',
-    connection: {
-      host: 'localhost',
-      port: 5432,
-      database: 'my_db',
-      user:     'postgres',
-      password: ''
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    },
-    searchPath: ['public'], 
+  client: 'postgresql',
+  connection: {
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    user:     process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    port: parseInt(process.env.POSTGRES_PORT, 10),
   },
-
-  production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+  pool: {
+    min: 2,
+    max: 10
+  },
+  migrations: {
+    tableName: 'knex_migrations'
   }
-
 };
