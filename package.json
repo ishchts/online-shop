@@ -10,9 +10,14 @@
     "lint": "eslint . --ext .js,.jsx --fix"
   },
   "dependencies": {
+    "@emotion/react": "11.13.5",
+    "@emotion/styled": "11.13.5",
     "@fastify/one-line-logger": "^1.2.0",
     "@fastify/react": "^0.6.0",
     "@fastify/vite": "^6.0.5",
+    "@fontsource/roboto": "5.1.0",
+    "@mui/icons-material": "6.1.9",
+    "@mui/material": "6.1.9",
     "dotenv": "16.4.5",
     "fastify": "^4.24.3",
     "history": "^5.3.0",

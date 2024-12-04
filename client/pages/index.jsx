@@ -1,4 +1,3 @@
-
 export function getMeta () {
   return {
     title: 'Welcome to @fastify/react!'

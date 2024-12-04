@@ -15,6 +15,7 @@ export default {
   ssr: {
     external: [
       'use-sync-external-store'
-    ]
+    ],
+    noExternal: ['@mui/icons-material'],
   },
 }

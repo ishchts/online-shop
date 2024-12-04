@@ -1,10 +1,54 @@
-import { Suspense } from 'react'
+import { Container } from '@mui/material';
+import { styled } from '@mui/material';
+import { height } from '@mui/system';
+import { Header } from '../components/Header';
+import { indigo } from '@mui/material/colors';
+
+const Main = styled(
+  'main',
+  {
+    name: 'MuiMain',
+    slot: 'root'
+  }
+)();
+
+const MuiFooter = styled(
+  'footer',
+  {
+    name: 'MuiFooter',
+    slot: 'root'
+  }
+)(() => ({
+  height: '50px',
+  ['& .MuiContainer-root']: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: indigo[50],
+  }
+}));
+
+const Footer = () => {
+  return (
+    <MuiFooter>
+      <Container>
+        anonymous
+      </Container>
+    </MuiFooter>
+  )
+}
 
 export default function Default ({ children }) {
   return (
-    <Suspense>
-      <div>default layout</div>
-      {children}
-    </Suspense>
+    <>
+      <Header />
+      <Main>
+        <Container>
+          {children}
+        </Container>
+      </Main>
+      <Footer />
+    </>
   )
 }
