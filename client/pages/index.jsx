@@ -1,12 +1,12 @@
-import { Input, Button, Link, Card, Typography } from "@mui/material"
-export function getMeta () {
+import { Input, Button, Link, Card, Typography } from '@mui/material';
+export function getMeta() {
   return {
-    title: 'Welcome to @fastify/react!'
-  }
+    title: 'Welcome to @fastify/react!',
+  };
 }
 
-export default function Index () {
-  const message = 'Welcome to @fastify/react!'
+export default function Index() {
+  const message = 'Welcome to @fastify/react!';
   return (
     <>
       <Input placeholder="input" />
@@ -23,5 +23,5 @@ export default function Index () {
         </Typography>
       </Card>
     </>
-  )
+  );
 }

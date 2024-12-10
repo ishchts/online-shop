@@ -1,3 +1,3 @@
-export default () => {
-    return 'order';
+export default function OrderPage() {
+  return 'order';
 }

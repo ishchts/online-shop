@@ -1,21 +1,16 @@
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-import viteReact from '@vitejs/plugin-react'
-import viteFastifyReact from '@fastify/react/plugin'
+import viteFastifyReact from '@fastify/react/plugin';
+import viteReact from '@vitejs/plugin-react';
 
-const path = fileURLToPath(import.meta.url)
+const path = fileURLToPath(import.meta.url);
 
 export default {
   root: join(dirname(path), 'client'),
-  plugins: [
-    viteReact(), 
-    viteFastifyReact(),
-  ],
+  plugins: [viteReact(), viteFastifyReact()],
   ssr: {
-    external: [
-      'use-sync-external-store'
-    ],
+    external: ['use-sync-external-store'],
     noExternal: ['@mui/icons-material'],
   },
-}
+};

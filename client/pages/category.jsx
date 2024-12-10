@@ -1,3 +1,3 @@
-export default () => {
-    return 'category';
+export default function CategoryPage() {
+  return 'category';
 }

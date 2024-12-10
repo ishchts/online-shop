@@ -1,3 +1,3 @@
-export default () => {
-    return 'cart';
+export default function Cart() {
+  return 'cart';
 }
