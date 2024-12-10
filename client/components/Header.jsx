@@ -50,20 +50,6 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
-    },
-}));
-
 export const Header = () => {
     return (
       <MuiHeader>
@@ -91,7 +77,7 @@ export const Header = () => {
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
-                        <StyledInputBase
+                        <InputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
                         />
@@ -102,7 +88,7 @@ export const Header = () => {
             <Tabs
                 variant="scrollable"
                 allowScrollButtonsMobile
-                sx={{ color: '#fff' }}
+                scrollButtons={true}
             >
                 <Tab component={Button} href='/' label='Главная' />
                 <Tab component={Button} href='/category' label='Каталог' />
