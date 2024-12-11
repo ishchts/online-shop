@@ -17,5 +17,7 @@ export default {
   },
   migrations: {
     tableName: 'knex_migrations',
+    directory: './migrations',
+    stub: './migrations/stubs/migration_template.js',
   },
 };
