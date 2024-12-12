@@ -24,6 +24,8 @@ import {
   Typography,
 } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { ToggleThemeButton } from './ToggleThemeButton';
 
@@ -59,6 +61,13 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 export const Header = () => {
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState(location.pathname);
+
+  const handleChange = (_, newValue) => {
+    setActiveTab(newValue);
+  };
+
   return (
     <MuiHeader>
       <Container>
@@ -97,10 +106,17 @@ export const Header = () => {
           variant="scrollable"
           allowScrollButtonsMobile
           scrollButtons={true}
+          value={activeTab}
+          onChange={handleChange}
         >
-          <Tab component={Button} href="/" label="Главная" />
-          <Tab component={Button} href="/category" label="Каталог" />
-          <Tab component={Button} href="/cart" label="Корзина" />
+          <Tab component={Button} href="/" label="Главная" value="/" />
+          <Tab
+            component={Button}
+            href="/category"
+            label="Каталог"
+            value="/category"
+          />
+          <Tab component={Button} href="/cart" label="Корзина" value="/cart" />
         </Tabs>
       </Container>
     </MuiHeader>
