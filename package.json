@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "11.13.5",
     "@emotion/styled": "11.13.5",
+    "@fastify/autoload": "6.0.2",
     "@fastify/one-line-logger": "^1.2.0",
     "@fastify/react": "^0.6.0",
     "@fastify/vite": "^6.0.5",

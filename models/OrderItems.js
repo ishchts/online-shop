@@ -1,7 +1,7 @@
 import { Model } from 'objection';
 
-export class User extends Model {
+export class OrderItems extends Model {
   static get tableName() {
-    return 'users';
+    return 'order_items';
   }
 }

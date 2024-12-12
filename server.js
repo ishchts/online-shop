@@ -1,10 +1,17 @@
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+
+import fastifyAutoload from '@fastify/autoload';
 import FastifyVite from '@fastify/vite';
 import Fastify from 'fastify';
 import knex from 'knex';
 import { Model } from 'objection';
 
 import knexConfig from './knexfile.js';
-import { User } from './models/User.js';
+import * as models from './models/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 Model.knex(knex(knexConfig));
 
@@ -23,23 +30,11 @@ await server.register(FastifyVite, {
 
 await server.vite.ready();
 
-server.decorate('db', {
-  todoList: ['Do laundry', 'Respond to emails', 'Write report'],
-});
+server.decorate('models', models);
 
-server.get('/api/users', async (_, reply) => {
-  const users = await User.query();
-  reply.code(200).send(users);
-});
-
-server.put('/api/todo/items', (req, reply) => {
-  server.db.todoList.push(req.body);
-  reply.send({ ok: true });
-});
-
-server.delete('/api/todo/items', (req, reply) => {
-  server.db.todoList.splice(req.body, 1);
-  reply.send({ ok: true });
+server.register(fastifyAutoload, {
+  dir: join(__dirname, 'routes'),
+  options: { prefix: '/api/v1' },
 });
 
 await server.listen({
