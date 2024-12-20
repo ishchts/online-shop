@@ -112,11 +112,23 @@ export const Header = () => {
           <Tab component={Button} href="/" label="Главная" value="/" />
           <Tab
             component={Button}
-            href="/category"
-            label="Каталог"
-            value="/category"
+            href="/products"
+            label="Продукты"
+            value="/products"
           />
           <Tab component={Button} href="/cart" label="Корзина" value="/cart" />
+          <Tab
+            component={Button}
+            href="/orders"
+            label="Заказы"
+            value="/orders"
+          />
+          <Tab
+            component={Button}
+            href="/products/2"
+            label="Деталка"
+            value="/products/2"
+          />
         </Tabs>
       </Container>
     </MuiHeader>
