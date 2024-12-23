@@ -1,5 +1,7 @@
 import { Model } from 'objection';
 
+import { OrderItems } from './OrderItems.js';
+
 export class Orders extends Model {
   static get tableName() {
     return 'orders';
@@ -18,6 +20,18 @@ export class Orders extends Model {
         total_price: { type: 'number' },
         created_at: { type: 'string', format: 'date-time' },
         updated_at: { type: 'string', format: 'date-time' },
+      },
+    };
+  }
+  static get relationMappings() {
+    return {
+      items: {
+        modelClass: OrderItems,
+        relation: Model.HasManyRelation,
+        join: {
+          from: 'orders.id',
+          to: 'order_items.id',
+        },
       },
     };
   }
