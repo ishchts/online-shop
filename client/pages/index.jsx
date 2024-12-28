@@ -1,4 +1,13 @@
-import { Input, Button, Link, Card, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  Typography,
+  CardActions,
+  CardContent,
+  Box,
+} from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { useEffect, useState } from 'react';
 
 export function getMeta() {
   return {
@@ -7,23 +16,71 @@ export function getMeta() {
 }
 
 export default function Index() {
-  const message = 'Welcome to @fastify/react!';
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('/api/v1/products');
+      const json = await res.json();
+      setProducts(json.results);
+    })();
+  }, []);
+
+  if (products.length === 0) {
+    return null;
+  }
 
   return (
-    <>
-      <Input placeholder="input" />
-      <Button>Button</Button>
-      <Button variant="contained">Button</Button>
-      <Link>Link</Link>
-      <p>{message}</p>
-      <Card>
-        <Typography variant="h5" gutterBottom>
-          Карточка с заголовком
-        </Typography>
-        <Typography variant="body1">
-          Это пример содержимого внутри карточки.
-        </Typography>
-      </Card>
-    </>
+    <Grid container sx={{ mt: 2, mb: 2 }} columnSpacing={2} rowSpacing={2}>
+      {products.map((item) => (
+        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={item.id}>
+          <Card>
+            <CardContent>
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{
+                  whiteSpace: 'nowrap',
+                  textOverflow: 'ellipsis',
+                  overflow: 'hidden',
+                }}
+              >
+                {item.name}
+              </Typography>
+              <Typography variant="body1">
+                <Box
+                  component="span"
+                  sx={{
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '51px',
+                  }}
+                >
+                  {item.description}
+                </Box>
+              </Typography>
+              <Typography variant="subtitle1">
+                Цена{' '}
+                {Intl.NumberFormat('ru', {
+                  currency: 'RUB',
+                  style: 'currency',
+                  currencyDisplay: 'symbol',
+                }).format(item.price)}
+              </Typography>
+              <Typography variant="subtitle1">
+                Наличие {item.stock} шт.
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button variant="contained" fullWidth={true} size="small">
+                Добавить в корзину
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
   );
 }

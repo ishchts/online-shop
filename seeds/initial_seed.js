@@ -32,18 +32,100 @@ export const seed = async (knex) => {
     })
     .returning('id');
 
-  // Добавляем продукт, связанный с каталогом
-  const [productId] = await knex('products')
-    .insert({
+  const products = [
+    {
       catalog_id: catalogId.id,
-      name: 'Smartphone',
-      description: 'A fancy smartphone',
-      price: 299.99,
+      name: 'Smartphone X1',
+      description: 'Flagship smartphone with great features',
+      price: 799.99,
+      stock: 120,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      catalog_id: catalogId.id,
+      name: 'Laptop Pro 15',
+      description: 'High-performance laptop for professionals',
+      price: 1299.99,
       stock: 50,
       created_at: new Date(),
       updated_at: new Date(),
-    })
-    .returning('id');
+    },
+    {
+      catalog_id: catalogId.id,
+      name: 'Smartwatch A10',
+      description: 'Smartwatch with health tracking features',
+      price: 199.99,
+      stock: 300,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      catalog_id: catalogId.id,
+      name: 'Wireless Earbuds',
+      description: 'Noise-cancelling wireless earbuds',
+      price: 89.99,
+      stock: 200,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      catalog_id: catalogId.id,
+      name: '4K Ultra HD TV',
+      description: 'A 55-inch TV with amazing picture quality',
+      price: 599.99,
+      stock: 30,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      catalog_id: catalogId.id,
+      name: 'Gaming Chair',
+      description: 'Ergonomic chair designed for gamers',
+      price: 159.99,
+      stock: 80,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      catalog_id: catalogId.id,
+      name: 'Bluetooth Speaker',
+      description: 'Portable Bluetooth speaker with great sound',
+      price: 49.99,
+      stock: 150,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      catalog_id: catalogId.id,
+      name: 'Digital Camera Z50',
+      description: 'Compact digital camera with high-quality imaging',
+      price: 499.99,
+      stock: 60,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      catalog_id: catalogId.id,
+      name: 'Smart Home Hub',
+      description: 'Central hub to control your smart home devices',
+      price: 89.99,
+      stock: 100,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      catalog_id: catalogId.id,
+      name: 'Portable Power Bank',
+      description: 'Keep your devices charged on the go',
+      price: 29.99,
+      stock: 500,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+  ];
+  // Добавляем продукт, связанный с каталогом
+  const [productId] = await knex('products').insert(products).returning('id');
 
   // Добавляем корзину, связанную с пользователем
   const [cartId] = await knex('cart')
