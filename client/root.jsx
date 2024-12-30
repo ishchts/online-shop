@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
@@ -10,13 +11,20 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Theme } from './theme';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    staleTime: 1000 * 60 * 5,
+    cacheTime: 1000 * 60 * 30,
+    refetchOnMount: false,
+  },
+});
 
 export default function Root(props) {
   const { url, routes, head, ctxHydration, routeMap } = props;
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <Theme>
         <Suspense>
           <Router location={url}>

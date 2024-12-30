@@ -1520,6 +1520,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-devtools@npm:5.62.9":
+  version: 5.62.9
+  resolution: "@tanstack/query-devtools@npm:5.62.9"
+  checksum: 10c0/214ef366435e3720e4bb23a247c319f13df3bda790c6df4aca7051168ca197b2b1109f6215ab57e17797ca82206d5f6ae9449325f3c3bba249d239a5c60b7f8e
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:5.62.11":
+  version: 5.62.11
+  resolution: "@tanstack/react-query-devtools@npm:5.62.11"
+  dependencies:
+    "@tanstack/query-devtools": "npm:5.62.9"
+  peerDependencies:
+    "@tanstack/react-query": ^5.62.11
+    react: ^18 || ^19
+  checksum: 10c0/ccb69e7027ad2c65a943e2dbe2b96166a1eba13b54314678a3535c080a8a32ce9127523840cd514083bddf1c4e7189bbccdab6ebe4c0f9ef1eeead8ef9d3e4ea
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-query@npm:5.62.11":
   version: 5.62.11
   resolution: "@tanstack/react-query@npm:5.62.11"
@@ -6549,6 +6568,7 @@ __metadata:
     "@mui/material": "npm:6.1.9"
     "@tanstack/eslint-plugin-query": "npm:5.62.9"
     "@tanstack/react-query": "npm:5.62.11"
+    "@tanstack/react-query-devtools": "npm:5.62.11"
     "@vitejs/plugin-react": "npm:^4.2.0"
     add: "npm:2.0.6"
     dotenv: "npm:16.4.5"
