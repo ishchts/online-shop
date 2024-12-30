@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import importPlugin from 'eslint-plugin-import';
 import a11y from 'eslint-plugin-jsx-a11y';
 import prettier from 'eslint-plugin-prettier';
@@ -9,6 +10,7 @@ import globals from 'globals';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  ...pluginQuery.configs['flat/recommended'],
   { ignores: ['**/dist'] },
   {
     files: ['**/*.{js,mjs,cjs,jsx}'],

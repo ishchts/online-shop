@@ -50,7 +50,7 @@ export default async (fastify) => {
     );
 
     // Очищаем корзину
-    // await cart.$relatedQuery('items').delete();
+    await cart.$relatedQuery('items').delete();
     return reply
       .status(201)
       .send({ order_id: newOrder.id, status: 'new', total_price: totalPrice });

@@ -7,7 +7,28 @@ import {
   Box,
 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { useEffect, useState } from 'react';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+
+const getProducts = async () => {
+  const res = await fetch('/api/v1/products');
+  const json = await res.json();
+  return json;
+};
+
+const addCart = async ({ productId, quantity }) => {
+  const res = await fetch('/api/v1/cart', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      product_id: productId,
+      quantity,
+    }),
+  });
+
+  return await res.json();
+};
 
 export function getMeta() {
   return {
@@ -16,22 +37,31 @@ export function getMeta() {
 }
 
 export default function Index() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const res = await fetch('/api/v1/products');
-      const json = await res.json();
-      setProducts(json.results);
-    })();
-  }, []);
+  const queryClient = useQueryClient();
 
-  if (products.length === 0) {
+  const { isLoading, data: products } = useQuery({
+    queryKey: ['products'],
+    queryFn: getProducts,
+  });
+
+  const addCartMutation = useMutation({
+    mutationFn: addCart,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
+    },
+  });
+
+  if (isLoading) {
     return null;
   }
 
+  const handleAddCart = (item) => () => {
+    addCartMutation.mutate({ productId: item.id, quantity: 1 });
+  };
+
   return (
     <Grid container sx={{ mt: 2, mb: 2 }} columnSpacing={2} rowSpacing={2}>
-      {products.map((item) => (
+      {products.results.map((item) => (
         <Grid size={{ xs: 12, sm: 6, md: 4 }} key={item.id}>
           <Card>
             <CardContent>
@@ -74,7 +104,12 @@ export default function Index() {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button variant="contained" fullWidth={true} size="small">
+              <Button
+                variant="contained"
+                fullWidth={true}
+                size="small"
+                onClick={handleAddCart(item)}
+              >
                 Добавить в корзину
               </Button>
             </CardActions>

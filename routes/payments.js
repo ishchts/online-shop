@@ -32,7 +32,7 @@ export default async (fastify) => {
         body: JSON.stringify({
           description,
           amount: {
-            value: order.total_price.toFixed(2),
+            value: Number(order.total_price).toFixed(2),
             currency: 'RUB',
           },
           capture: false,
@@ -40,22 +40,42 @@ export default async (fastify) => {
             type: 'redirect',
             return_url,
           },
-          metadata,
+          metadata: {
+            ...metadata,
+            order_id,
+          },
           test: true,
         }),
       });
       const json = await payment.json();
-      await order.$query().patch({
+
+      await order.$relatedQuery('payments').patch({
         payment_status: 'waiting',
       });
 
       return reply.code(200).send(json);
     } catch (error) {
-      return reply.status(500).send({ error });
+      return reply.status(500).send(error);
     }
   });
 
   fastify.post('/payments/webhook', async (req, reply) => {
+    const { object } = req.body;
+
+    if (object.status === 'succeeded') {
+      await models.Orders.query()
+        .patch({
+          status: 'paid',
+        })
+        .where('id', object.metadata.order_id);
+    } else if (object.status === 'canceled') {
+      await models.Orders.query()
+        .patch({
+          status: 'canceled',
+        })
+        .where('id', object.metadata.order_id);
+    }
+
     return reply.code(200).send({});
   });
 };

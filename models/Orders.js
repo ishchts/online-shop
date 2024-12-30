@@ -1,6 +1,7 @@
 import { Model } from 'objection';
 
 import { OrderItems } from './OrderItems.js';
+import { Payments } from './Payments.js';
 
 export class Orders extends Model {
   static get tableName() {
@@ -31,6 +32,14 @@ export class Orders extends Model {
         join: {
           from: 'orders.id',
           to: 'order_items.id',
+        },
+      },
+      payments: {
+        modelClass: Payments,
+        relation: Model.HasManyRelation,
+        join: {
+          from: 'orders.id',
+          to: 'payments.order_id',
         },
       },
     };

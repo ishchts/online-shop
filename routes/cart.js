@@ -92,10 +92,11 @@ export default async (fastify) => {
       .$relatedQuery('items')
       .delete()
       .where({ product_id });
+
     if (deletedRows === 0) {
-      return reply.status(404).send({ error: 'Item not found in cart' });
+      return reply.code(404).send({ error: 'Item not found in cart' });
     }
 
-    return reply.status(204).send();
+    return reply.code(200).send({});
   });
 };
